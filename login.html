@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EduSphere – Login</title>
+  <style>
+    body {
+      font-family :'Times New Roman', Times, serif ;
+      background: linear-gradient(to right, #e3f2fd, #bbdefb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #1565c0;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #90caf9;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      margin-top: 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #1565c0;
+    }
+
+    #message {
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .register-link a {
+      text-decoration: none;
+      color: #1976d2;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #555;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login to EduSphere</h2>
+    <form id="loginForm">
+      <label for="email">Email (Gmail only):</label>
+      <input type="text" id="email" required>
+      <div class="hint">e.g., example@gmail.com (no spaces)</div>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" required>
+
+      <input type="submit" value="Login">
+      <div id="message"></div>
+    </form>
+
+    <div class="register-link">
+      Don't have an account? <a href="register.html">Create one</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const messageDiv = document.getElementById("message");
+
+      const emailPattern = /^[^\s@]+@gmail\.com$/;
+
+
+      if (!emailPattern.test(email)) {
+        messageDiv.style.color = "red";
+        messageDiv.textContent = "Enter a valid Gmail address without spaces.";
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const validUser = users.find(user => user.email === email && user.password === password);
+
+      if (validUser) {
+        messageDiv.style.color = "green";
+        messageDiv.textContent = "Logged in successfully!";
+        document.getElementById("loginForm").reset();
+
+        // Optional: redirect to a dashboard.html after 2s
+        // setTimeout(() => window.location.href = "dashboard.html", 2000);
+
+      } else {
+        messageDiv.style.color = "red";
+        messageDiv.textContent = "Invalid email or password.";
+      }
+    });
+  </script>
+</body>
+</html>
