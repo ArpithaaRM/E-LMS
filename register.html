@@ -73,58 +73,6 @@
       </div>
     </div>
   </div>
-
-  <script>
-    (() => {
-      const form = document.getElementById('registerForm');
-
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const fullname = form.fullname.value.trim();
-        const email = form.email.value.trim();
-        const password = form.password.value;
-        const confirmPassword = form.confirmPassword.value;
-
-
-        const emailPattern = /^[^\s@]+@gmail\.com$/;
-        const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-
-        let valid = true;
-
-        if (!fullname) {
-          form.fullname.classList.add('is-invalid');
-          valid = false;
-        }
-        if (!emailPattern.test(email)) {
-          form.email.classList.add('is-invalid');
-          valid = false;
-        }
-        if (!strongPasswordPattern.test(password)) {
-          form.password.classList.add('is-invalid');
-          valid = false;
-        }
-        if (password !== confirmPassword) {
-          form.confirmPassword.classList.add('is-invalid');
-          valid = false;
-        }
-
-        if (!valid) return;
-
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-        if (users.some(user => user.email === email)) {
-          alert('This Gmail ID is already registered.');
-          return;
-        }
-        users.push({ email, password });
-        localStorage.setItem('users', JSON.stringify(users));
-
-        window.location.href = "login.html";
-        form.reset();
-      });
-
-
-    })();
-  </script>
+  <script type="module" src="./dist/register.js"></script>
 </body>
 </html>
