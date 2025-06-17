@@ -25,6 +25,58 @@
           ),
           url("assests/hero.jpg") center/cover no-repeat;
       }
+      .carousel-viewport {
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.carousel-card {
+  flex: 0 0 100%;
+  max-width: 100%;
+  padding: 0 0.5rem;
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .carousel-card {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (min-width: 992px) {
+  .carousel-card {
+    flex: 0 0 33.3333%;
+    max-width: 33.3333%;
+  }
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.nav-btn:hover {
+  opacity: 1;
+}
+
+.prev-btn {
+  left: -10px;
+}
+
+.next-btn{
+  right: -10px;
+}
+
     </style>
   </head>
 
@@ -172,6 +224,34 @@
       </div>
     </div>
     <div></div>
+    <div class="container my-5 position-relative">
+    <h3 class="text-center text-primary mb-4">Top Rated Courses</h3>
+
+    <!-- Navigation Buttons -->
+    <button class="btn btn-dark nav-btn prev-btn" onclick="prevSlide()">&larr;</button>
+    <button class="btn btn-dark nav-btn next-btn" onclick="nextSlide()">&rarr;</button>
+
+    <!-- Carousel -->
+    <div class="carousel-viewport">
+      <div class="carousel-track" id="carousel-track">
+        <!-- Cards injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="courseModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="courseModalLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="courseModalBody"></div>
+      </div>
+    </div>
+  </div>
+</div>
     <!-- Footer -->
     <footer class="bg-dark text-white pt-5 pb-4 mt-5">
       <div class="container">
@@ -241,5 +321,127 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="data/data.js"></script>
+    <script>
+    const track = document.getElementById('carousel-track');
+
+    // Determine visible count based on window width
+    function getVisibleCount() {
+      const w = window.innerWidth;
+      if (w >= 992) return 3;
+      if (w >= 768) return 2;
+      return 1;
+    }
+
+    let visibleCount = getVisibleCount();
+    let startIndex = 0;
+    let isTransitioning = false;
+
+    function renderCards() {
+  const total = courses.length;
+  const displayCourses = [];
+
+  for (let i = 0; i < visibleCount; i++) {
+    const index = (startIndex + i) % total;
+    displayCourses.push(courses[index]);
+  }
+
+  track.innerHTML = displayCourses.map(course => `
+    <div class="carousel-card">
+      <div class="card h-100 shadow-sm">
+        <img src="${course.thumbnail}" class="card-img-top" style="height: 200px; object-fit: cover; cursor: pointer;" onclick="openModal('${course.title}', '${course.description}')">
+        <div class="card-body text-center">
+          <h5 class="card-title">${course.title}</h5>
+          <p class="card-text">${course.description}</p>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  track.style.transition = 'none';
+  track.style.transform = 'translateX(0)';
+  track.offsetHeight;
+}
+
+
+    function nextSlide() {
+  if (isTransitioning) return;
+  isTransitioning = true;
+
+  const moveBy = track.offsetWidth / visibleCount;
+
+  // Clone the first card and append it
+  const firstCard = track.children[0].cloneNode(true);
+  track.appendChild(firstCard);
+
+  // Animate the slide
+  track.style.transition = 'transform 0.8s ease';
+  track.style.transform = `translateX(-${moveBy}px)`;
+
+  setTimeout(() => {
+    // Remove the first card and reset transform
+    track.style.transition = 'none';
+    track.removeChild(track.children[0]);
+    track.style.transform = 'translateX(0)';
+
+    // Advance start index logically
+    startIndex = (startIndex + 1) % courses.length;
+
+    isTransitioning = false;
+  }, 800);
+}
+
+    function prevSlide() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+
+      startIndex = (startIndex - 1 + courses.length) % courses.length;
+      renderCards();
+
+      const moveBy = track.offsetWidth / (visibleCount + 1);
+      track.style.transition = 'none';
+      track.style.transform = `translateX(-${moveBy}px)`;
+
+      // Small timeout to allow transition reset, then slide to position 0
+      setTimeout(() => {
+        track.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        track.style.transform = 'translateX(0)';
+      }, 50);
+
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 850);
+    }
+
+    function openModal(title, description) {
+      document.getElementById('courseModalLabel').textContent = title;
+      document.getElementById('courseModalBody').textContent = description;
+      const modal = new bootstrap.Modal(document.getElementById('courseModal'));
+      modal.show();
+    }
+
+    // Auto slide every 2.5 seconds (slightly longer for smoothness)
+    let slideInterval = setInterval(nextSlide, 2500);
+
+    // Pause auto slide on mouse enter and resume on mouse leave
+    document.querySelector('.carousel-viewport').addEventListener('mouseenter', () => {
+      clearInterval(slideInterval);
+    });
+    document.querySelector('.carousel-viewport').addEventListener('mouseleave', () => {
+      slideInterval = setInterval(nextSlide, 2500);
+    });
+
+    // Adjust visible cards on window resize
+    window.addEventListener('resize', () => {
+      const newVisible = getVisibleCount();
+      if (newVisible !== visibleCount) {
+        visibleCount = newVisible;
+        renderCards();
+      }
+    });
+
+    // Initial render
+    renderCards();
+  </script>
+
   </body>
 </html>
