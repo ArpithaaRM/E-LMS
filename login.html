@@ -14,34 +14,38 @@
   <body class="bg-light">
     <div class="d-flex justify-content-center align-items-center min-vh-100">
       <div class="card shadow p-4 col-md-5 bg-white">
-        <h3 class="card-title mb-4 text-center text-primary fw-bold">Login</h3>
-        <form id="loginForm" novalidate>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              placeholder="Enter your email"
-              required
-            />
-            <div class="invalid-feedback">Please enter a valid email.</div>
-          </div>
+       <h3 class="card-title mb-4 text-center text-primary fw-bold">Login</h3>
+       <form id="loginForm" novalidate>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      placeholder="Enter your email"
+      required
+    />
+    <div class="invalid-feedback">
+      Please enter a valid email.
+    </div>
+  </div>
 
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              placeholder="Enter your password"
-              required
-            />
-            <div class="invalid-feedback">Please enter your password.</div>
-          </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      placeholder="Enter your password"
+      required
+    />
+    <div class="invalid-feedback">
+      Please enter your password.
+    </div>
+  </div>
 
-          <button type="submit" class="btn btn-primary w-100">Login</button>
-        </form>
+  <button type="submit" class="btn btn-primary w-100">Login</button>
+</form>
 
         <div class="text-center mt-3">
           Don't have an account? <a href="register.html">Create one</a>
@@ -58,36 +62,34 @@
 </html>
 
 <script>
-  document.getElementById("loginForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const email = e.target.email;
-    const password = e.target.password;
+ document.getElementById("loginForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const email = e.target.email;
+  const password = e.target.password;
 
-    // reset validation states
-    email.classList.remove("is-invalid");
-    password.classList.remove("is-invalid");
+  // reset validation states
+  email.classList.remove("is-invalid");
+  password.classList.remove("is-invalid");
 
-    if (!email.value.trim()) {
-      email.classList.add("is-invalid");
-      return;
-    }
-    if (!password.value.trim()) {
-      password.classList.add("is-invalid");
-      return;
-    }
+  if (!email.value.trim()) {
+    email.classList.add("is-invalid");
+    return;
+  }
+  if (!password.value.trim()) {
+    password.classList.add("is-invalid");
+    return;
+  }
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const user = users.find(
-      (u) =>
-        u.email === email.value.trim() && u.password === password.value.trim()
-    );
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  const user = users.find(u => u.email === email.value.trim() && u.password === password.value.trim());
 
-    if (!user) {
-      password.classList.add("is-invalid");
-      password.nextElementSibling.textContent = "Invalid email or password.";
-      return;
-    }
+  if (!user) {
+    password.classList.add("is-invalid");
+    password.nextElementSibling.textContent = "Invalid email or password.";
+    return;
+  }
 
-    window.location.href = "index.html";
-  });
+  // Success: redirect
+  window.location.href = "index.html";
+});
 </script>
