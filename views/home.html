@@ -1,0 +1,198 @@
+<!-- Hero Section -->
+    <section
+      class="hero-section text-white text-center d-flex align-items-center"
+    >
+      <div class="container py-5">
+        <h1 class="display-4 fw-bold">Empower Your Learning with EduSphere</h1>
+        <p class="lead">
+          Join thousands of learners and explore diverse online courses from
+          expert instructors.
+        </p>
+        <a href="courses.html" class="btn btn-light btn-lg mt-3"
+          >Explore Courses</a
+        >
+      </div>
+    </section>
+
+   <!-- Course Categories Section -->
+<section class="bg-white position-relative z-1">
+  <div class="container py-5 position-relative text-center">
+
+    <div
+      class="position-absolute top-50 start-0 translate-middle-y d-none d-md-block"
+      style="z-index: 0;"
+    >
+      <div
+        class="bg-primary"
+        style="width: 8px; height: 150px; border-radius: 5px"
+      ></div>
+    </div>
+
+
+    <div
+      class="position-absolute top-50 end-0 translate-middle-y d-none d-md-block"
+      style="z-index: 0;"
+    >
+      <div
+        class="bg-primary"
+        style="width: 8px; height: 150px; border-radius: 5px"
+      ></div>
+    </div>
+
+    <!-- Heading -->
+    <h2 class="mb-5 fw-bold text-primary position-relative z-1">
+      Course Category
+    </h2>
+
+    <!-- Category Cards -->
+    <div class="row justify-content-center g-4 position-relative z-1">
+      <!-- Web Dev -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card border-0 shadow h-100">
+          <div class="ratio ratio-4x3">
+            <img
+              src="https://static.vecteezy.com/system/resources/previews/002/042/858/original/landing-page-template-with-businesspeople-building-a-modern-website-vector.jpg"
+              class="card-img-top object-fit-cover"
+              alt="Web Dev"
+            />
+          </div>
+          <div class="card-body d-grid p-0">
+            <button class="btn btn-primary rounded-0 py-2">
+              Web Development
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Science -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card border-0 shadow h-100">
+          <div class="ratio ratio-4x3">
+            <img
+              src="https://www.milesweb.com/blog/wp-content/uploads/2021/06/10-Best-Customer-Onboarding-Strategies-That-Can-Work-Wonders-For-Your-Business.jpg"
+              class="card-img-top object-fit-cover"
+              alt="Data Science"
+            />
+          </div>
+          <div class="card-body d-grid p-0">
+            <button class="btn btn-primary rounded-0 py-2">
+              Data Science
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Design -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card border-0 shadow h-100">
+          <div class="ratio ratio-4x3">
+            <img
+              src="https://www.specbee.com/sites/default/files/2021-02/Drupal-for-everyone-teaser-min.jpg"
+              class="card-img-top object-fit-cover"
+              alt="Design"
+            />
+          </div>
+          <div class="card-body d-grid p-0">
+            <button class="btn btn-primary rounded-0 py-2">Design</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+      <div class="container my-5 position-relative">
+            <h2 class="mb-5 fw-bold text-primary position-relative text-center">Top Rated Courses
+    </h2>
+        <!-- Navigation Buttons -->
+        <button class="btn btn-dark nav-btn prev-btn" onclick="prevSlide()">
+          &larr;
+        </button>
+        <button class="btn btn-dark nav-btn next-btn" onclick="nextSlide()">
+          &rarr;
+        </button>
+
+        <!-- Carousel -->
+        <div class="carousel-viewport">
+          <div class="carousel-track" id="carousel-track">
+            <!-- Cards injected dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonials Carousel -->
+      <div class="container mt-5 mb-5 bg-light">
+            <h2 class="mb-5 fw-bold text-primary position-relative text-center">
+      What Our Students Say
+    </h2>
+        <div
+          id="testimonialCarousel"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="bg-light p-4 rounded shadow text-center">
+                <p class="mb-2">
+                  "EduSphere helped me land my dream job in tech. Highly
+                  recommend!"
+                </p>
+                <h6>- Priya R, Web Developer</h6>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="bg-light p-4 rounded shadow text-center">
+                <p class="mb-2">
+                  "The Data Science track was structured perfectly for beginners
+                  like me."
+                </p>
+                <h6>- Arjun K, Data Analyst</h6>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="bg-light p-4 rounded shadow text-center">
+                <p class="mb-2">
+                  "Fantastic instructors and very user-friendly interface!"
+                </p>
+                <h6>- Sneha M, UI/UX Designer</h6>
+              </div>
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#testimonialCarousel"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#testimonialCarousel"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+      </div>
+      <div></div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="courseModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="courseModalLabel"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body" id="courseModalBody"></div>
+          </div>
+        </div>
+      </div>
+    </div>
