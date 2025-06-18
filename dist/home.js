@@ -40,7 +40,7 @@ export function initHomePage() {
                 const target = img;
                 const title = target.getAttribute("data-title") || "";
                 const description = target.getAttribute("data-desc") || "";
-                openModal(title, description);
+                //openModal(title, description);
             });
         });
         track.style.transition = "none";
@@ -81,17 +81,17 @@ export function initHomePage() {
             isTransitioning = false;
         }, 850);
     }
-    function openModal(title, description) {
-        const modalTitle = document.getElementById("courseModalLabel");
-        const modalBody = document.getElementById("courseModalBody");
-        const modalElement = document.getElementById("courseModal");
-        if (!modalTitle || !modalBody || !modalElement)
-            return;
-        modalTitle.textContent = title;
-        modalBody.textContent = description;
-        const modal = new window.bootstrap.Modal(modalElement);
-        modal.show();
-    }
+    // function openModal(title, description) {
+    //     const modalTitle = document.getElementById("courseModalLabel");
+    //     const modalBody = document.getElementById("courseModalBody");
+    //     const modalElement = document.getElementById("courseModal");
+    //     if (!modalTitle || !modalBody || !modalElement)
+    //         return;
+    //     modalTitle.textContent = title;
+    //     modalBody.textContent = description;
+    //     const modal = new window.bootstrap.Modal(modalElement);
+    //     modal.show();
+    // }
     ;
     // Auto-slide
     let slideInterval = window.setInterval(nextSlide, 2500);

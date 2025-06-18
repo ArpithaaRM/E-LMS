@@ -50,7 +50,7 @@ function renderCards(): void {
         const target = img as HTMLElement;
         const title = target.getAttribute("data-title") || "";
         const description = target.getAttribute("data-desc") || "";
-        openModal(title, description);
+        //openModal(title, description);
       });
     });
 
@@ -101,19 +101,19 @@ function prevSlide(): void {
   }, 850);
 }
 
-function openModal(title: string, description: string): void {
-  const modalTitle = document.getElementById("courseModalLabel");
-  const modalBody = document.getElementById("courseModalBody");
-  const modalElement = document.getElementById("courseModal");
+// function openModal(title: string, description: string): void {
+//   const modalTitle = document.getElementById("courseModalLabel");
+//   const modalBody = document.getElementById("courseModalBody");
+//   const modalElement = document.getElementById("courseModal");
 
-  if (!modalTitle || !modalBody || !modalElement) return;
+//   if (!modalTitle || !modalBody || !modalElement) return;
 
-  modalTitle.textContent = title;
-  modalBody.textContent = description;
+//   modalTitle.textContent = title;
+//   modalBody.textContent = description;
 
-  const modal = new (window as any).bootstrap.Modal(modalElement);
-  modal.show();
-};
+//   const modal = new (window as any).bootstrap.Modal(modalElement);
+//   modal.show();
+// };
 
 // Auto-slide
 let slideInterval: number = window.setInterval(nextSlide, 2500);
