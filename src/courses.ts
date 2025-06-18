@@ -1,5 +1,8 @@
 import { Course } from "./course_model";
 
+
+export function initCoursesPage(): void {
+
 const container = document.getElementById("course-container") as HTMLElement;
 const searchInput = document.getElementById("searchInput") as HTMLInputElement;
 
@@ -43,7 +46,7 @@ function renderCourses(courseList: Course[]): void {
 }
 
 // ✅ Corrected path: assuming `data.json` is in root or served from `public/` or `dist/`
-fetch("../dist/data.json")
+fetch("dist/data.json")
   .then((res) => res.json())
   .then((data: Course[]) => {
     courses = data;
@@ -109,4 +112,5 @@ if (videoModal) {
       video.currentTime = 0;
     }
   });
+}
 }
