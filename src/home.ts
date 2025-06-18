@@ -1,6 +1,12 @@
 import { Course } from "./course_model";
 
+
+export function initHomePage(): void {
 const track = document.getElementById("carousel-track") as HTMLElement;
+if (!track) return;
+
+const viewport = document.querySelector(".carousel-viewport");
+
 
 function getVisibleCount(): number {
   const w = window.innerWidth;
@@ -38,6 +44,16 @@ function renderCards(): void {
   `
     )
     .join("");
+
+   track.querySelectorAll(".course-img").forEach((img) => {
+      img.addEventListener("click", () => {
+        const target = img as HTMLElement;
+        const title = target.getAttribute("data-title") || "";
+        const description = target.getAttribute("data-desc") || "";
+        openModal(title, description);
+      });
+    });
+
 
   track.style.transition = "none";
   track.style.transform = "translateX(0)";
@@ -85,7 +101,7 @@ function prevSlide(): void {
   }, 850);
 }
 
-(window as any).openModal = function (title: string, description: string): void {
+function openModal(title: string, description: string): void {
   const modalTitle = document.getElementById("courseModalLabel");
   const modalBody = document.getElementById("courseModalBody");
   const modalElement = document.getElementById("courseModal");
@@ -103,7 +119,6 @@ function prevSlide(): void {
 let slideInterval: number = window.setInterval(nextSlide, 2500);
 
 // Pause/resume on hover
-const viewport = document.querySelector(".carousel-viewport");
 if (viewport) {
   viewport.addEventListener("mouseenter", () => clearInterval(slideInterval));
   viewport.addEventListener("mouseleave", () => {
@@ -121,7 +136,7 @@ window.addEventListener("resize", () => {
 });
 
 // Fetch courses
-fetch("../dist/data.json")
+fetch("dist/data.json")
   .then((res) => res.json())
   .then((data: Course[]) => {
     courses = data;
@@ -131,3 +146,8 @@ fetch("../dist/data.json")
     console.error("Failed to load courses:", err);
     track.innerHTML = `<div class="alert alert-danger text-center w-100">Unable to load carousel data.</div>`;
   });
+
+(window as any).prevSlide = prevSlide;
+(window as any).nextSlide = nextSlide;
+}
+
