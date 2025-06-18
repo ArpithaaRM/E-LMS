@@ -1,5 +1,3 @@
-import { courses } from "./data.js";
-// Get carousel track element
 const track = document.getElementById("carousel-track");
 function getVisibleCount() {
     const w = window.innerWidth;
@@ -12,6 +10,7 @@ function getVisibleCount() {
 let visibleCount = getVisibleCount();
 let startIndex = 0;
 let isTransitioning = false;
+let courses = [];
 function renderCards() {
     const total = courses.length;
     const displayCourses = [];
@@ -34,7 +33,7 @@ function renderCards() {
         .join("");
     track.style.transition = "none";
     track.style.transform = "translateX(0)";
-    track.offsetHeight; // Force reflow
+    track.offsetHeight;
 }
 function nextSlide() {
     if (isTransitioning)
@@ -70,7 +69,7 @@ function prevSlide() {
         isTransitioning = false;
     }, 850);
 }
-function openModal(title, description) {
+window.openModal = function (title, description) {
     const modalTitle = document.getElementById("courseModalLabel");
     const modalBody = document.getElementById("courseModalBody");
     const modalElement = document.getElementById("courseModal");
@@ -80,20 +79,18 @@ function openModal(title, description) {
     modalBody.textContent = description;
     const modal = new window.bootstrap.Modal(modalElement);
     modal.show();
-}
+};
 // Auto-slide
 let slideInterval = window.setInterval(nextSlide, 2500);
 // Pause/resume on hover
 const viewport = document.querySelector(".carousel-viewport");
 if (viewport) {
-    viewport.addEventListener("mouseenter", () => {
-        clearInterval(slideInterval);
-    });
+    viewport.addEventListener("mouseenter", () => clearInterval(slideInterval));
     viewport.addEventListener("mouseleave", () => {
         slideInterval = window.setInterval(nextSlide, 2500);
     });
 }
-// Adjust on resize
+// Resize listener
 window.addEventListener("resize", () => {
     const newVisible = getVisibleCount();
     if (newVisible !== visibleCount) {
@@ -101,5 +98,15 @@ window.addEventListener("resize", () => {
         renderCards();
     }
 });
-// Initial render
-renderCards();
+// Fetch courses
+fetch("../dist/data.json")
+    .then((res) => res.json())
+    .then((data) => {
+    courses = data;
+    renderCards();
+})
+    .catch((err) => {
+    console.error("Failed to load courses:", err);
+    track.innerHTML = `<div class="alert alert-danger text-center w-100">Unable to load carousel data.</div>`;
+});
+export {};
