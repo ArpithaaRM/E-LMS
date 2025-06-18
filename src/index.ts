@@ -1,7 +1,5 @@
-import { courses } from "./data";
 import { Course } from "./course_model";
 
-// Get carousel track element
 const track = document.getElementById("carousel-track") as HTMLElement;
 
 function getVisibleCount(): number {
@@ -14,9 +12,10 @@ function getVisibleCount(): number {
 let visibleCount: number = getVisibleCount();
 let startIndex: number = 0;
 let isTransitioning: boolean = false;
+let courses: Course[] = [];
 
 function renderCards(): void {
-  const total: number = courses.length;
+  const total = courses.length;
   const displayCourses: Course[] = [];
 
   for (let i = 0; i < visibleCount; i++) {
@@ -26,7 +25,7 @@ function renderCards(): void {
 
   track.innerHTML = displayCourses
     .map(
-      (course: Course) => `
+      (course) => `
     <div class="carousel-card">
       <div class="card h-100 shadow-sm">
         <img src="${course.thumbnail}" class="card-img-top" style="height: 200px; object-fit: cover; cursor: pointer;" onclick="openModal('${course.title}', '${course.description}')">
@@ -42,16 +41,15 @@ function renderCards(): void {
 
   track.style.transition = "none";
   track.style.transform = "translateX(0)";
-  track.offsetHeight; // Force reflow
+  track.offsetHeight;
 }
 
 function nextSlide(): void {
   if (isTransitioning) return;
   isTransitioning = true;
 
-  const moveBy: number = track.offsetWidth / visibleCount;
-
-  const firstCard: Node = track.children[0].cloneNode(true);
+  const moveBy = track.offsetWidth / visibleCount;
+  const firstCard = track.children[0].cloneNode(true);
   track.appendChild(firstCard);
 
   track.style.transition = "transform 0.8s ease";
@@ -73,7 +71,7 @@ function prevSlide(): void {
   startIndex = (startIndex - 1 + courses.length) % courses.length;
   renderCards();
 
-  const moveBy: number = track.offsetWidth / (visibleCount + 1);
+  const moveBy = track.offsetWidth / (visibleCount + 1);
   track.style.transition = "none";
   track.style.transform = `translateX(-${moveBy}px)`;
 
@@ -87,7 +85,7 @@ function prevSlide(): void {
   }, 850);
 }
 
-function openModal(title: string, description: string): void {
+(window as any).openModal = function (title: string, description: string): void {
   const modalTitle = document.getElementById("courseModalLabel");
   const modalBody = document.getElementById("courseModalBody");
   const modalElement = document.getElementById("courseModal");
@@ -99,7 +97,7 @@ function openModal(title: string, description: string): void {
 
   const modal = new (window as any).bootstrap.Modal(modalElement);
   modal.show();
-}
+};
 
 // Auto-slide
 let slideInterval: number = window.setInterval(nextSlide, 2500);
@@ -107,15 +105,13 @@ let slideInterval: number = window.setInterval(nextSlide, 2500);
 // Pause/resume on hover
 const viewport = document.querySelector(".carousel-viewport");
 if (viewport) {
-  viewport.addEventListener("mouseenter", () => {
-    clearInterval(slideInterval);
-  });
+  viewport.addEventListener("mouseenter", () => clearInterval(slideInterval));
   viewport.addEventListener("mouseleave", () => {
     slideInterval = window.setInterval(nextSlide, 2500);
   });
 }
 
-// Adjust on resize
+// Resize listener
 window.addEventListener("resize", () => {
   const newVisible = getVisibleCount();
   if (newVisible !== visibleCount) {
@@ -124,5 +120,14 @@ window.addEventListener("resize", () => {
   }
 });
 
-// Initial render
-renderCards();
+// Fetch courses
+fetch("../dist/data.json")
+  .then((res) => res.json())
+  .then((data: Course[]) => {
+    courses = data;
+    renderCards();
+  })
+  .catch((err) => {
+    console.error("Failed to load courses:", err);
+    track.innerHTML = `<div class="alert alert-danger text-center w-100">Unable to load carousel data.</div>`;
+  });

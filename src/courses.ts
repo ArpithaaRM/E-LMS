@@ -1,8 +1,9 @@
 import { Course } from "./course_model";
-import { courses } from "./data";
 
 const container = document.getElementById("course-container") as HTMLElement;
 const searchInput = document.getElementById("searchInput") as HTMLInputElement;
+
+let courses: Course[] = [];
 
 function renderCourses(courseList: Course[]): void {
   container.innerHTML = "";
@@ -20,12 +21,9 @@ function renderCourses(courseList: Course[]): void {
 
   courseList.forEach((course: Course) => {
     container.innerHTML += `
-      <div class="col-12 col-sm-6 col-md-4 mb-4 course-item" data-category="${
-        course.category
-      }" data-title="${course.title.toLowerCase()}">
+      <div class="col-12 col-sm-6 col-md-4 mb-4 course-item" data-category="${course.category}" data-title="${course.title.toLowerCase()}">
         <div class="course-card h-100 d-flex flex-column">
-          <img src="${course.thumbnail}" alt="${course.title}" class="img-fluid mb-3 w-100" 
-            style="height: 180px; object-fit: cover;">
+          <img src="${course.thumbnail}" alt="${course.title}" class="img-fluid mb-3 w-100" style="height: 180px; object-fit: cover;">
           <h5>${course.title}</h5>
           <p><strong>Instructor:</strong> ${course.instructor}</p>
           <p class="flex-grow-1">${course.description}</p>
@@ -44,7 +42,23 @@ function renderCourses(courseList: Course[]): void {
   });
 }
 
-renderCourses(courses);
+// ✅ Corrected path: assuming `data.json` is in root or served from `public/` or `dist/`
+fetch("../dist/data.json")
+  .then((res) => res.json())
+  .then((data: Course[]) => {
+    courses = data;
+    renderCourses(courses);
+  })
+  .catch((err) => {
+    console.error("Failed to fetch courses:", err);
+    container.innerHTML = `
+      <div class="col-12">
+        <div class="alert alert-danger text-center" role="alert">
+          Unable to load courses.
+        </div>
+      </div>
+    `;
+  });
 
 // Filter by category
 document.querySelectorAll(".filter-btn").forEach((btn) => {
@@ -85,7 +99,7 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// Handle modal close and stop video
+// Stop video on modal close
 const videoModal = document.getElementById("videoModal");
 if (videoModal) {
   videoModal.addEventListener("hidden.bs.modal", function () {
