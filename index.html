@@ -1,534 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>EduSphere - Home</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <style>
-      .footer-desc {
-        text-align: justify;
-      }
 
-      .hero-section {
-        min-height: 80vh;
-        background: linear-gradient(
-            rgba(13, 110, 253, 0.85),
-            rgba(13, 110, 253, 0.85)
-          ),
-          url("assests/hero.jpg") center/cover no-repeat;
-      }
-      .carousel-viewport {
-        overflow: hidden;
-        position: relative;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EduSphere - Home</title>
+  
+  <link rel="icon" href="assets/icon-512.png" type="image/png" />
+  <link rel="manifest" href="manifest.json" />
 
-      .carousel-track {
-        display: flex;
-        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        will-change: transform;
-      }
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    .course-card {
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+      padding: 1rem;
+      transition: transform 0.2s;
+    }
 
+    .course-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .footer-desc {
+      text-align: justify;
+    }
+
+    .hero-section {
+      min-height: 80vh;
+      background: linear-gradient(rgba(13, 110, 253, 0.85),
+          rgba(13, 110, 253, 0.85)),
+        url("assests/hero.jpg") center/cover no-repeat;
+    }
+
+    .carousel-viewport {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    .carousel-card {
+      flex: 0 0 100%;
+      max-width: 100%;
+      padding: 0 0.5rem;
+    }
+
+    @media (min-width: 768px) and (max-width: 991.98px) {
       .carousel-card {
-        flex: 0 0 100%;
-        max-width: 100%;
-        padding: 0 0.5rem;
+        flex: 0 0 50%;
+        max-width: 50%;
       }
+    }
 
-      @media (min-width: 768px) and (max-width: 991.98px) {
-        .carousel-card {
-          flex: 0 0 50%;
-          max-width: 50%;
-        }
+    @media (min-width: 992px) {
+      .carousel-card {
+        flex: 0 0 33.3333%;
+        max-width: 33.3333%;
       }
+    }
 
-      @media (min-width: 992px) {
-        .carousel-card {
-          flex: 0 0 33.3333%;
-          max-width: 33.3333%;
-        }
-      }
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
 
-      .nav-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 10;
-        opacity: 0.8;
-        transition: opacity 0.3s ease;
-      }
+    .nav-btn:hover {
+      opacity: 1;
+    }
 
-      .nav-btn:hover {
-        opacity: 1;
-      }
+    .prev-btn {
+      left: -10px;
+    }
 
-      .prev-btn {
-        left: -10px;
-      }
+    .next-btn {
+      right: -10px;
+    }
+  </style>
+</head>
 
-      .next-btn {
-        right: -10px;
-      }
-    </style>
-  </head>
+<body class="bg-light d-flex flex-column min-vh-100">
+  <!-- Header/Nav -->
+  <nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="#"><i class="bi bi-mortarboard-fill me-1 text-primary"></i>EduSphere</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="#courses">Courses</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="#dashboard">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="#contact">Contact</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-person-circle"></i> Account
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="login.html">Login</a></li>
+              <li>
+                <a class="dropdown-item" href="register.html">Register</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-  <body class="bg-light">
-    <!-- Header/Nav -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="#"
-          ><i class="bi bi-mortarboard-fill me-1 text-primary"></i>EduSphere</a
-        >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="collapse navbar-collapse justify-content-end"
-          id="navbarNav"
-        >
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link text-dark" href="#">Home</a>
+  <main class="flex-fill" id="app"></main>
+  <!-- Footer -->
+  <footer class="bg-dark text-white pt-5 pb-4 mt-5">
+    <div class="container px-3">
+      <div class="row text-center text-md-start gy-4">
+        <!-- Brand & Description -->
+        <div class="col-12 col-md-4">
+          <h5 class="fw-bold mb-3">
+            <i class="bi bi-mortarboard-fill me-2 text-primary"></i>EduSphere
+          </h5>
+          <p class="footer-desc">
+            Empower your future with knowledge at EduSphere — where education
+            meets innovation. Our diverse range of programs fosters creativity
+            and real-world readiness.
+          </p>
+        </div>
+
+        <!-- Spacer for md and up -->
+        <div class="d-none d-md-block col-md-1"></div>
+
+        <!-- Quick Links -->
+        <div class="d-none d-md-block col-md-3">
+          <h5 class="fw-bold mb-3">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="#home" class="text-white text-decoration-none">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark" href="courses.html">Courses</a>
+            <li class="mb-2">
+              <a href="#courses" class="text-white text-decoration-none">Courses</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark" href="#">About</a>
+            <li class="mb-2">
+              <a href="#dashboard" class="text-white text-decoration-none">Dashboard</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark" href="#">Contact</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle text-dark"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-              >
-                <i class="bi bi-person-circle"></i> Account
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="login.html">Login</a></li>
-                <li>
-                  <a class="dropdown-item" href="register.html">Register</a>
-                </li>
-              </ul>
+            <li class="mb-2">
+              <a href="#contact" class="text-white text-decoration-none">Contact</a>
             </li>
           </ul>
         </div>
-      </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section
-      class="hero-section text-white text-center d-flex align-items-center"
-    >
-      <div class="container py-5">
-        <h1 class="display-4 fw-bold">Empower Your Learning with EduSphere</h1>
-        <p class="lead">
-          Join thousands of learners and explore diverse online courses from
-          expert instructors.
-        </p>
-        <a href="courses.html" class="btn btn-light btn-lg mt-3"
-          >Explore Courses</a
-        >
-      </div>
-    </section>
-
-   <!-- Course Categories Section -->
-<section class="bg-white position-relative z-1">
-  <div class="container py-5 position-relative text-center">
-
-    <div
-      class="position-absolute top-50 start-0 translate-middle-y d-none d-md-block"
-      style="z-index: 0;"
-    >
-      <div
-        class="bg-primary"
-        style="width: 8px; height: 150px; border-radius: 5px"
-      ></div>
-    </div>
-
-
-    <div
-      class="position-absolute top-50 end-0 translate-middle-y d-none d-md-block"
-      style="z-index: 0;"
-    >
-      <div
-        class="bg-primary"
-        style="width: 8px; height: 150px; border-radius: 5px"
-      ></div>
-    </div>
-
-    <!-- Heading -->
-    <h2 class="mb-5 fw-bold text-primary position-relative z-1">
-      Course Category
-    </h2>
-
-    <!-- Category Cards -->
-    <div class="row justify-content-center g-4 position-relative z-1">
-      <!-- Web Dev -->
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card border-0 shadow h-100">
-          <div class="ratio ratio-4x3">
-            <img
-              src="https://static.vecteezy.com/system/resources/previews/002/042/858/original/landing-page-template-with-businesspeople-building-a-modern-website-vector.jpg"
-              class="card-img-top object-fit-cover"
-              alt="Web Dev"
-            />
-          </div>
-          <div class="card-body d-grid p-0">
-            <button class="btn btn-primary rounded-0 py-2">
-              Web Development
-            </button>
-          </div>
+        <!-- Contact Us -->
+        <div class="col-12 col-md-4">
+          <h5 class="fw-bold mb-3">Contact Us</h5>
+          <p class="mb-2">
+            <i class="bi bi-envelope me-2"></i><strong>Email:</strong> info@edusphere.edu
+          </p>
+          <p class="mb-2">
+            <i class="bi bi-telephone me-2"></i><strong>Phone:</strong> +91
+            8123456789
+          </p>
+          <p class="mb-0">
+            <i class="bi bi-geo-alt me-2"></i><strong>Address:</strong> #45,
+            MG Street, Tumkur, Karnataka
+          </p>
         </div>
       </div>
 
-      <!-- Data Science -->
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card border-0 shadow h-100">
-          <div class="ratio ratio-4x3">
-            <img
-              src="https://www.milesweb.com/blog/wp-content/uploads/2021/06/10-Best-Customer-Onboarding-Strategies-That-Can-Work-Wonders-For-Your-Business.jpg"
-              class="card-img-top object-fit-cover"
-              alt="Data Science"
-            />
-          </div>
-          <div class="card-body d-grid p-0">
-            <button class="btn btn-primary rounded-0 py-2">
-              Data Science
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Design -->
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card border-0 shadow h-100">
-          <div class="ratio ratio-4x3">
-            <img
-              src="https://www.specbee.com/sites/default/files/2021-02/Drupal-for-everyone-teaser-min.jpg"
-              class="card-img-top object-fit-cover"
-              alt="Design"
-            />
-          </div>
-          <div class="card-body d-grid p-0">
-            <button class="btn btn-primary rounded-0 py-2">Design</button>
-          </div>
+      <!-- Footer bottom -->
+      <div class="mt-4">
+        <hr class="text-white" />
+        <div class="text-center">
+          <small>&copy; 2025 EduSphere. All rights reserved.</small>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </footer>
 
-
-      <div class="container my-5 position-relative">
-            <h2 class="mb-5 fw-bold text-primary position-relative text-center">Top Rated Courses
-    </h2>
-        <!-- Navigation Buttons -->
-        <button class="btn btn-dark nav-btn prev-btn" onclick="prevSlide()">
-          &larr;
-        </button>
-        <button class="btn btn-dark nav-btn next-btn" onclick="nextSlide()">
-          &rarr;
-        </button>
-
-        <!-- Carousel -->
-        <div class="carousel-viewport">
-          <div class="carousel-track" id="carousel-track">
-            <!-- Cards injected dynamically -->
-          </div>
-        </div>
-      </div>
-
-      <!-- Testimonials Carousel -->
-      <div class="container mt-5 mb-5 bg-light">
-            <h2 class="mb-5 fw-bold text-primary position-relative text-center">
-      What Our Students Say
-    </h2>
-        <div
-          id="testimonialCarousel"
-          class="carousel slide"
-          data-bs-ride="carousel"
-        >
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="bg-light p-4 rounded shadow text-center">
-                <p class="mb-2">
-                  "EduSphere helped me land my dream job in tech. Highly
-                  recommend!"
-                </p>
-                <h6>- Priya R, Web Developer</h6>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="bg-light p-4 rounded shadow text-center">
-                <p class="mb-2">
-                  "The Data Science track was structured perfectly for beginners
-                  like me."
-                </p>
-                <h6>- Arjun K, Data Analyst</h6>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="bg-light p-4 rounded shadow text-center">
-                <p class="mb-2">
-                  "Fantastic instructors and very user-friendly interface!"
-                </p>
-                <h6>- Sneha M, UI/UX Designer</h6>
-              </div>
-            </div>
-          </div>
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#testimonialCarousel"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon"></span>
-          </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#testimonialCarousel"
-            data-bs-slide="next"
-          >
-            <span class="carousel-control-next-icon"></span>
-          </button>
-        </div>
-      </div>
-      <div></div>
-
-      <!-- Modal -->
-      <div class="modal fade" id="courseModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="courseModalLabel"></h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-              ></button>
-            </div>
-            <div class="modal-body" id="courseModalBody"></div>
-          </div>
-        </div>
-          
-      </div>
-    </div>
-    <!-- Footer -->
-    <footer class="bg-dark text-white pt-5 pb-4 mt-5">
-  <div class="container px-3">
-    <div class="row text-center text-md-start gy-4">
-      <!-- Brand & Description -->
-      <div class="col-12 col-md-4">
-        <h5 class="fw-bold mb-3">
-          <i class="bi bi-mortarboard-fill me-2 text-primary"></i>EduSphere
-        </h5>
-        <p class="footer-desc">
-          Empower your future with knowledge at EduSphere — where education
-          meets innovation. Our diverse range of programs fosters creativity
-          and real-world readiness.
-        </p>
-      </div>
-
-      <!-- Spacer for md and up -->
-      <div class="d-none d-md-block col-md-1"></div>
-
-      <!-- Quick Links -->
-<div class="d-none d-md-block col-md-3">
-  <h5 class="fw-bold mb-3">Quick Links</h5>
-  <ul class="list-unstyled">
-    <li class="mb-2">
-      <a href="index.html" class="text-white text-decoration-none">Home</a>
-    </li>
-    <li class="mb-2">
-      <a href="courses.html" class="text-white text-decoration-none">Courses</a>
-    </li>
-    <li class="mb-2">
-      <a href="#" class="text-white text-decoration-none">About</a>
-    </li>
-    <li class="mb-2">
-      <a href="#" class="text-white text-decoration-none">Contact</a>
-    </li>
-  </ul>
-</div>
-
-      <!-- Contact Us -->
-      <div class="col-12 col-md-4">
-        <h5 class="fw-bold mb-3">Contact Us</h5>
-        <p class="mb-2">
-          <i class="bi bi-envelope me-2"></i><strong>Email:</strong> info@edusphere.edu
-        </p>
-        <p class="mb-2">
-          <i class="bi bi-telephone me-2"></i><strong>Phone:</strong> +91 8123456789
-        </p>
-        <p class="mb-0">
-          <i class="bi bi-geo-alt me-2"></i><strong>Address:</strong> #45, MG Street, Tumkur, Karnataka
-        </p>
-      </div>
-    </div>
-
-    <!-- Footer bottom -->
-    <div class="mt-4">
-      <hr class="text-white" />
-      <div class="text-center">
-        <small>&copy; 2025 EduSphere. All rights reserved.</small>
-      </div>
-    </div>
-  </div>
-</footer>
-
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="data/data.js"></script>
-    <script>
-      const track = document.getElementById("carousel-track");
-
-      // Determine visible count based on window width
-      function getVisibleCount() {
-        const w = window.innerWidth;
-        if (w >= 992) return 3;
-        if (w >= 768) return 2;
-        return 1;
-      }
-
-      let visibleCount = getVisibleCount();
-      let startIndex = 0;
-      let isTransitioning = false;
-
-      function renderCards() {
-        const total = courses.length;
-        const displayCourses = [];
-
-        for (let i = 0; i < visibleCount; i++) {
-          const index = (startIndex + i) % total;
-          displayCourses.push(courses[index]);
-        }
-
-        track.innerHTML = displayCourses
-          .map(
-            (course) => `
-    <div class="carousel-card">
-      <div class="card h-100 shadow-sm">
-        <img src="${course.thumbnail}" class="card-img-top" style="height: 200px; object-fit: cover; cursor: pointer;" onclick="openModal('${course.title}', '${course.description}')">
-        <div class="card-body text-center">
-          <h5 class="card-title">${course.title}</h5>
-          <p class="card-text">${course.description}</p>
-        </div>
-      </div>
-    </div>
-  `
-          )
-          .join("");
-
-        track.style.transition = "none";
-        track.style.transform = "translateX(0)";
-        track.offsetHeight;
-      }
-
-      function nextSlide() {
-        if (isTransitioning) return;
-        isTransitioning = true;
-
-        const moveBy = track.offsetWidth / visibleCount;
-
-        // Clone the first card and append it
-        const firstCard = track.children[0].cloneNode(true);
-        track.appendChild(firstCard);
-
-        // Animate the slide
-        track.style.transition = "transform 0.8s ease";
-        track.style.transform = `translateX(-${moveBy}px)`;
-
-        setTimeout(() => {
-          // Remove the first card and reset transform
-          track.style.transition = "none";
-          track.removeChild(track.children[0]);
-          track.style.transform = "translateX(0)";
-
-          // Advance start index logically
-          startIndex = (startIndex + 1) % courses.length;
-
-          isTransitioning = false;
-        }, 800);
-      }
-
-      function prevSlide() {
-        if (isTransitioning) return;
-        isTransitioning = true;
-
-        startIndex = (startIndex - 1 + courses.length) % courses.length;
-        renderCards();
-
-        const moveBy = track.offsetWidth / (visibleCount + 1);
-        track.style.transition = "none";
-        track.style.transform = `translateX(-${moveBy}px)`;
-
-        // Small timeout to allow transition reset, then slide to position 0
-        setTimeout(() => {
-          track.style.transition =
-            "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
-          track.style.transform = "translateX(0)";
-        }, 50);
-
-        setTimeout(() => {
-          isTransitioning = false;
-        }, 850);
-      }
-
-      function openModal(title, description) {
-        document.getElementById("courseModalLabel").textContent = title;
-        document.getElementById("courseModalBody").textContent = description;
-        const modal = new bootstrap.Modal(
-          document.getElementById("courseModal")
-        );
-        modal.show();
-      }
-
-      // Auto slide every 2.5 seconds (slightly longer for smoothness)
-      let slideInterval = setInterval(nextSlide, 2500);
-
-      // Pause auto slide on mouse enter and resume on mouse leave
-      document
-        .querySelector(".carousel-viewport")
-        .addEventListener("mouseenter", () => {
-          clearInterval(slideInterval);
-        });
-      document
-        .querySelector(".carousel-viewport")
-        .addEventListener("mouseleave", () => {
-          slideInterval = setInterval(nextSlide, 2500);
-        });
-
-      // Adjust visible cards on window resize
-      window.addEventListener("resize", () => {
-        const newVisible = getVisibleCount();
-        if (newVisible !== visibleCount) {
-          visibleCount = newVisible;
-          renderCards();
-        }
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="./dist/router.js"></script>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then((reg) => console.log("Service Worker registered!", reg))
+          .catch((err) => console.error("Service Worker failed: ", err));
       });
+    }
+  </script>
 
-      // Initial render
-      renderCards();
-    </script>
-  </body>
+</body>
+
 </html>

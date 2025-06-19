@@ -58,38 +58,7 @@
       integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
       crossorigin="anonymous"
     ></script>
+    <script type="module" src="./dist/login.js"></script>
   </body>
 </html>
 
-<script>
- document.getElementById("loginForm").addEventListener("submit", e => {
-  e.preventDefault();
-  const email = e.target.email;
-  const password = e.target.password;
-
-  // reset validation states
-  email.classList.remove("is-invalid");
-  password.classList.remove("is-invalid");
-
-  if (!email.value.trim()) {
-    email.classList.add("is-invalid");
-    return;
-  }
-  if (!password.value.trim()) {
-    password.classList.add("is-invalid");
-    return;
-  }
-
-  const users = JSON.parse(localStorage.getItem("users")) || [];
-  const user = users.find(u => u.email === email.value.trim() && u.password === password.value.trim());
-
-  if (!user) {
-    password.classList.add("is-invalid");
-    password.nextElementSibling.textContent = "Invalid email or password.";
-    return;
-  }
-
-  // Success: redirect
-  window.location.href = "index.html";
-});
-</script>
