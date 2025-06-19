@@ -103,8 +103,7 @@
 
 
       <div class="container my-5 position-relative">
-            <h2 class="mb-5 fw-bold text-primary position-relative text-center">Top Rated Courses
-    </h2>
+            <h2 class="mb-5 fw-bold text-primary position-relative text-center">Top Rated Courses</h2>
         <!-- Navigation Buttons -->
         <button class="btn btn-dark nav-btn prev-btn" onclick="prevSlide()">
           &larr;
@@ -113,55 +112,19 @@
           &rarr;
         </button>
 
-        <!-- Carousel -->
-        <div class="carousel-viewport">
-          <div class="carousel-track" id="carousel-track">
-            <!-- Cards injected dynamically -->
+          <!-- Carousel -->
+          <div class="carousel-viewport">
+            <div class="carousel-track" id="carousel-track">
+             <!-- Cards injected dynamically -->
+            </div>
           </div>
-        </div>
       </div>
 
-      <!-- Testimonials Carousel -->
-      <div class="container mt-5 mb-5 bg-light">
-            <h2 class="mb-5 fw-bold text-primary position-relative text-center">
-      What Our Students Say
-    </h2>
-        <div
-          id="testimonialCarousel"
-          class="carousel slide"
-          data-bs-ride="carousel"
-        >
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="bg-light p-4 rounded shadow text-center">
-                <p class="mb-2">
-                  "EduSphere helped me land my dream job in tech. Highly
-                  recommend!"
-                </p>
-                <h6>- Priya R, Web Developer</h6>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="bg-light p-4 rounded shadow text-center">
-                <p class="mb-2">
-                  "The Data Science track was structured perfectly for beginners
-                  like me."
-                </p>
-                <h6>- Arjun K, Data Analyst</h6>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="bg-light p-4 rounded shadow text-center">
-                <p class="mb-2">
-                  "Fantastic instructors and very user-friendly interface!"
-                </p>
-                <h6>- Sneha M, UI/UX Designer</h6>
-              </div>
-            </div>
-          </div>
-            <span class="carousel-control-next-icon"></span>
-          </button>
+      <div id="testimonial-section" class="container mt-5 mb-5 bg-light">
+        <h2 class="mb-5 fw-bold text-primary text-center">What Our Students Say</h2>
+        <div class="testimonial-slider bg-white p-4 rounded shadow text-center">
+        <p id="testimonial-text" class="mb-2"></p>
+        <h6 id="testimonial-author"></h6>
         </div>
       </div>
-      
-    </div>
+</div>
