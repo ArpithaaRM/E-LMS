@@ -81,18 +81,16 @@ export function initHomePage() {
             isTransitioning = false;
         }, 850);
     }
-    // function openModal(title, description) {
-    //     const modalTitle = document.getElementById("courseModalLabel");
-    //     const modalBody = document.getElementById("courseModalBody");
-    //     const modalElement = document.getElementById("courseModal");
-    //     if (!modalTitle || !modalBody || !modalElement)
-    //         return;
-    //     modalTitle.textContent = title;
-    //     modalBody.textContent = description;
-    //     const modal = new window.bootstrap.Modal(modalElement);
-    //     modal.show();
-    // }
-    ;
+    // function openModal(title: string, description: string): void {
+    //   const modalTitle = document.getElementById("courseModalLabel");
+    //   const modalBody = document.getElementById("courseModalBody");
+    //   const modalElement = document.getElementById("courseModal");
+    //   if (!modalTitle || !modalBody || !modalElement) return;
+    //   modalTitle.textContent = title;
+    //   modalBody.textContent = description;
+    //   const modal = new (window as any).bootstrap.Modal(modalElement);
+    //   modal.show();
+    // };
     // Auto-slide
     let slideInterval = window.setInterval(nextSlide, 2500);
     // Pause/resume on hover
@@ -123,4 +121,31 @@ export function initHomePage() {
     });
     window.prevSlide = prevSlide;
     window.nextSlide = nextSlide;
+    let currentTestimonial = 0;
+    let testimonials = [];
+    const testimonialText = document.getElementById("testimonial-text");
+    const testimonialAuthor = document.getElementById("testimonial-author");
+    function showTestimonial(index) {
+        if (testimonialText && testimonialAuthor && testimonials.length > 0) {
+            testimonialText.textContent = `"${testimonials[index].text}"`;
+            testimonialAuthor.textContent = testimonials[index].author;
+        }
+    }
+    // Fetch testimonials from JSON
+    fetch("dist/testimonials.json")
+        .then((res) => res.json())
+        .then((data) => {
+        testimonials = data;
+        showTestimonial(currentTestimonial);
+        // Auto-switch every 3 seconds
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }, 3000);
+    })
+        .catch((err) => {
+        console.error("Failed to load testimonials:", err);
+        if (testimonialText)
+            testimonialText.textContent = "Unable to load testimonials.";
+    });
 }
